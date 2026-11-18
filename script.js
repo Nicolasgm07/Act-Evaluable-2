@@ -257,7 +257,7 @@ function act3(){
                     window.alert("El ISBN ya existe");
                 }
                 else {
-                    catalogo.set(ISBN, [titulo, autor, numEjemplares]);
+                    catalogo.set(ISBN, {titulo, autor, numEjemplares});
                 }
                 console.table(catalogo);
                 break;
@@ -285,7 +285,7 @@ function act3(){
                 let numLibros = 0;
                 let claves = [...catalogo.keys()];
                 for (let i = 0; i < claves.length; i++) {
-                    console.log("ISBN: " + claves[i] + " Titulo: " + catalogo.get(claves[i])[0] + " Autor: " + catalogo.get(claves[i])[1] + " Numero ejemplares: " + catalogo.get(claves[i])[2]);
+                    console.log("ISBN: " + claves[i] + " Titulo: " + catalogo.get(claves[i]).titulo + " Autor: " + catalogo.get(claves[i]).autor + " Numero ejemplares: " + catalogo.get(claves[i]).numEjemplares);
                     numLibros++;
                 }
                 console.log("Numero de libros: " + numLibros);
@@ -294,7 +294,7 @@ function act3(){
                 let ISBNe = window.prompt("Introduce el ISBN");
                 let cantidad = parseInt(window.prompt("Introduce la cantidad"));
                 if (catalogo.has(ISBNe)) {
-                    catalogo.get(ISBNe)[2] = cantidad;
+                    catalogo.get(ISBNe).numEjemplares = cantidad;
                 }
                 else {
                     window.alert("El libro no existe");
@@ -306,20 +306,20 @@ function act3(){
                 let autorBuscado = window.prompt("Introduce el autor");
                 let clavesAutor = [...catalogo.keys()];
                 for (let i = 0; i < clavesAutor.length; i++) {
-                    if (catalogo.get(clavesAutor[i])[1] == autorBuscado) {
-                        console.log("ISBN: " + clavesAutor[i] + " Titulo: " + catalogo.get(clavesAutor[i])[0] + " Autor: " + catalogo.get(clavesAutor[i])[1] + " Numero ejemplares: " + catalogo.get(clavesAutor[i])[2]);
+                    if (catalogo.get(clavesAutor[i]).autor == autorBuscado) {
+                        console.log("ISBN: " + clavesAutor[i] + " Titulo: " + catalogo.get(clavesAutor[i]).titulo + " Autor: " + catalogo.get(clavesAutor[i]).autor + " Numero ejemplares: " + catalogo.get(clavesAutor[i]).numEjemplares);
                         libros++;
                     }
                 }
-                if (librosAutor == 0) {
+                if (libros == 0) {
                     window.alert("Este autor no tiene libros");
                 }
                 break;
             case "g":
                 let ISBNg = window.prompt("Introduce el ISBN");
                 if (catalogo.has(ISBNg)) {
-                    if (catalogo.get(ISBNg)[2] > 0) {
-                        catalogo.get(ISBNg)[2]--;
+                    if (catalogo.get(ISBNg).numEjemplares > 0) {
+                        catalogo.get(ISBNg).numEjemplares--;
                         window.alert("Libro prestado");
                     }
                     else {
@@ -334,7 +334,7 @@ function act3(){
             case "h":
                 let ISBNh = window.prompt("Introduce el ISBN");
                 if (catalogo.has(ISBNh)) {
-                    catalogo.get(ISBNh)[2]++;
+                    catalogo.get(ISBNh).numEjemplares++;
                     window.alert("Libro devuelto");
                 }
                 else {
@@ -348,10 +348,10 @@ function act3(){
                 let libroMasEjemplares = 0;
                 let clavesLibros = [...catalogo.keys()];
                 for (let i = 0; i < clavesLibros.length; i++) {
-                    numTotalEjemplares += parseInt(catalogo.get(clavesLibros[i])[2]);
-                    if (catalogo.get(clavesLibros[i])[2] >= libroMasEjemplares) {
-                        libroMasEjemplares = catalogo.get(clavesLibros[i])[2];
-                        libroMax = catalogo.get(clavesLibros[i])[0];
+                    numTotalEjemplares += parseInt(catalogo.get(clavesLibros[i]).numEjemplares);
+                    if (catalogo.get(clavesLibros[i]).numEjemplares >= libroMasEjemplares) {
+                        libroMasEjemplares = catalogo.get(clavesLibros[i]).numEjemplares;
+                        libroMax = catalogo.get(clavesLibros[i]).titulo;
                     }
                 }
                 window.alert("Estadisticas: \n" +
