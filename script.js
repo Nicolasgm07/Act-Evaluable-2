@@ -206,7 +206,7 @@ function act2() {
                 break;
             case "d":
                 let numParticipantes = 0;
-                for (let i = 0; i < set_participantes.length; i++) {
+                for (let i = 0; i < set_participantes.size; i++) {
                     console.log(set_participantes[i]);
                     numParticipantes++;
                 }
@@ -229,60 +229,148 @@ function act2() {
 
 // act2();
 
-let catalogo = new Map();
-let salir = false;
+function act3(){
+    let catalogo = new Map();
+    let salir = false;
 
-do {
-    let opcion = window.prompt("Elige una opción: \n" +
-        "a. Añadir un libro \n" +
-        "b. Eliminar un libro \n" +
-        "c. Consultar un libro \n" +
-        "d. Mostrar catálogo \n" +
-        "e. Modificar ejemplares \n" +
-        "f. Buscar libros de un autor \n" +
-        "g. Prestar un libro \n" +
-        "h. Devolver un libro \n" +
-        "i. Mostrar estadísticas \n" +
-        "j. Vaciar catálogo \n" +
-        "k. Salir \n");
+    do {
+        let opcion = window.prompt("Elige una opción: \n" +
+            "a. Añadir un libro \n" +
+            "b. Eliminar un libro \n" +
+            "c. Consultar un libro \n" +
+            "d. Mostrar catálogo \n" +
+            "e. Modificar ejemplares \n" +
+            "f. Buscar libros de un autor \n" +
+            "g. Prestar un libro \n" +
+            "h. Devolver un libro \n" +
+            "i. Mostrar estadísticas \n" +
+            "j. Vaciar catálogo \n" +
+            "k. Salir \n");
 
-    switch (opcion) {
-        case "a":
-            let ISBN = window.prompt("Introduce el ISBN");
-            let titulo = window.prompt("Introduce el título");
-            let autor = window.prompt("Introduce el autor");
-            let numEjemplares = window.prompt("Introduce el número de ejemplares");
-            if (catalogo.has(ISBN)) {
-                window.alert("El ISBN ya existe");
-            }
-            else {
-                catalogo.set(ISBN,[titulo, autor, numEjemplares]);
-            }
-            console.table(catalogo);
-            break;
-        case "b":
-            let ISBNSolicitado = window.prompt("Introduce el ISBN");
-            if(catalogo.has(ISBN)){
-                catalogo.delete(ISBN);
-            }
-            else{
-                window.alert("El libro no existe");
-            }
-            console.table(catalogo);
-            break;
-        case "c":
-            let ISBNSol = window.prompt("Introduce el ISBN");
-            if(catalogo.has(ISBNSol)){
-                let libroConsultado = catalogo.get(ISBNSol);
-                console.table(libroConsultado);
-            }
-            else{
-                window.alert("El libro no existe");
-            }
-            break;
-        case "k":
-            salir = true;
-            window.alert("Has salido");
-            break;
+        switch (opcion) {
+            case "a":
+                let ISBN = window.prompt("Introduce el ISBN");
+                let titulo = window.prompt("Introduce el título");
+                let autor = window.prompt("Introduce el autor");
+                let numEjemplares = window.prompt("Introduce el número de ejemplares");
+                if (catalogo.has(ISBN)) {
+                    window.alert("El ISBN ya existe");
+                }
+                else {
+                    catalogo.set(ISBN, [titulo, autor, numEjemplares]);
+                }
+                console.table(catalogo);
+                break;
+            case "b":
+                let ISBNSolicitado = window.prompt("Introduce el ISBN");
+                if (catalogo.has(ISBNSolicitado)) {
+                    catalogo.delete(ISBNSolicitado);
+                }
+                else {
+                    window.alert("El libro no existe");
+                }
+                console.table(catalogo);
+                break;
+            case "c":
+                let ISBNSol = window.prompt("Introduce el ISBN");
+                if (catalogo.has(ISBNSol)) {
+                    let libroConsultado = catalogo.get(ISBNSol);
+                    console.table(libroConsultado);
+                }
+                else {
+                    window.alert("El libro no existe");
+                }
+                break;
+            case "d":
+                let numLibros = 0;
+                let claves = [...catalogo.keys()];
+                for (let i = 0; i < claves.length; i++) {
+                    console.log("ISBN: " + claves[i] + " Titulo: " + catalogo.get(claves[i])[0] + " Autor: " + catalogo.get(claves[i])[1] + " Numero ejemplares: " + catalogo.get(claves[i])[2]);
+                    numLibros++;
+                }
+                console.log("Numero de libros: " + numLibros);
+                break;
+            case "e":
+                let ISBNe = window.prompt("Introduce el ISBN");
+                let cantidad = parseInt(window.prompt("Introduce la cantidad"));
+                if (catalogo.has(ISBNe)) {
+                    catalogo.get(ISBNe)[2] = cantidad;
+                }
+                else {
+                    window.alert("El libro no existe");
+                }
+                console.table(catalogo);
+                break;
+            case "f":
+                let libros = 0;
+                let autorBuscado = window.prompt("Introduce el autor");
+                let clavesAutor = [...catalogo.keys()];
+                for (let i = 0; i < clavesAutor.length; i++) {
+                    if (catalogo.get(clavesAutor[i])[1] == autorBuscado) {
+                        console.log("ISBN: " + clavesAutor[i] + " Titulo: " + catalogo.get(clavesAutor[i])[0] + " Autor: " + catalogo.get(clavesAutor[i])[1] + " Numero ejemplares: " + catalogo.get(clavesAutor[i])[2]);
+                        libros++;
+                    }
+                }
+                if (librosAutor == 0) {
+                    window.alert("Este autor no tiene libros");
+                }
+                break;
+            case "g":
+                let ISBNg = window.prompt("Introduce el ISBN");
+                if (catalogo.has(ISBNg)) {
+                    if (catalogo.get(ISBNg)[2] > 0) {
+                        catalogo.get(ISBNg)[2]--;
+                        window.alert("Libro prestado");
+                    }
+                    else {
+                        window.alert("No quedan libros disponibles");
+                    }
+                }
+                else {
+                    window.alert("El libro no existe");
+                }
+                console.table(catalogo);
+                break;
+            case "h":
+                let ISBNh = window.prompt("Introduce el ISBN");
+                if (catalogo.has(ISBNh)) {
+                    catalogo.get(ISBNh)[2]++;
+                    window.alert("Libro devuelto");
+                }
+                else {
+                    window.alert("El libro no existe");
+                }
+                console.table(catalogo);
+                break;
+            case "i":
+                let numTotalEjemplares = 0;
+                let libroMax = "";
+                let libroMasEjemplares = 0;
+                let clavesLibros = [...catalogo.keys()];
+                for (let i = 0; i < clavesLibros.length; i++) {
+                    numTotalEjemplares += parseInt(catalogo.get(clavesLibros[i])[2]);
+                    if (catalogo.get(clavesLibros[i])[2] >= libroMasEjemplares) {
+                        libroMasEjemplares = catalogo.get(clavesLibros[i])[2];
+                        libroMax = catalogo.get(clavesLibros[i])[0];
+                    }
+                }
+                window.alert("Estadisticas: \n" +
+                    "Total de libros = " + catalogo.size + "\n" +
+                    "Total de ejemplares = " + numTotalEjemplares + "\n" +
+                    "Libro con mas ejemplares = " + libroMax + "\n"
+                );
+                break;
+            case "j":
+                catalogo = new Map();
+                window.alert("Vaciado");
+                console.table(catalogo);
+                break;
+            case "k":
+                salir = true;
+                window.alert("Has salido");
+                break;
+        }
+    } while (!salir)
     }
-} while (!salir)
+
+// act3();
