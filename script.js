@@ -252,7 +252,7 @@ function act3(){
                 let ISBN = window.prompt("Introduce el ISBN");
                 let titulo = window.prompt("Introduce el título");
                 let autor = window.prompt("Introduce el autor");
-                let numEjemplares = window.prompt("Introduce el número de ejemplares");
+                let numEjemplares = parseInt(window.prompt("Introduce el número de ejemplares"));
                 if (catalogo.has(ISBN)) {
                     window.alert("El ISBN ya existe");
                 }
@@ -275,7 +275,10 @@ function act3(){
                 let ISBNSol = window.prompt("Introduce el ISBN");
                 if (catalogo.has(ISBNSol)) {
                     let libroConsultado = catalogo.get(ISBNSol);
-                    console.table(libroConsultado);
+                    window.alert("ISBN: " + ISBNSol + "\n" +
+                        "Titulo: " + libroConsultado.titulo + "\n" +
+                        "Autor: " + libroConsultado.autor + "\n" +
+                        "Numero ejemplares: " + libroConsultado.numEjemplares);
                 }
                 else {
                     window.alert("El libro no existe");
@@ -285,10 +288,10 @@ function act3(){
                 let numLibros = 0;
                 let claves = [...catalogo.keys()];
                 for (let i = 0; i < claves.length; i++) {
-                    console.log("ISBN: " + claves[i] + " Titulo: " + catalogo.get(claves[i]).titulo + " Autor: " + catalogo.get(claves[i]).autor + " Numero ejemplares: " + catalogo.get(claves[i]).numEjemplares);
+                    window.alert("ISBN: " + claves[i] + " Titulo: " + catalogo.get(claves[i]).titulo + " Autor: " + catalogo.get(claves[i]).autor + " Numero ejemplares: " + catalogo.get(claves[i]).numEjemplares);
                     numLibros++;
                 }
-                console.log("Numero de libros: " + numLibros);
+                window.alert("Numero de libros: " + numLibros);
                 break;
             case "e":
                 let ISBNe = window.prompt("Introduce el ISBN");
@@ -307,7 +310,7 @@ function act3(){
                 let clavesAutor = [...catalogo.keys()];
                 for (let i = 0; i < clavesAutor.length; i++) {
                     if (catalogo.get(clavesAutor[i]).autor == autorBuscado) {
-                        console.log("ISBN: " + clavesAutor[i] + " Titulo: " + catalogo.get(clavesAutor[i]).titulo + " Autor: " + catalogo.get(clavesAutor[i]).autor + " Numero ejemplares: " + catalogo.get(clavesAutor[i]).numEjemplares);
+                        window.alert("ISBN: " + clavesAutor[i] + " Titulo: " + catalogo.get(clavesAutor[i]).titulo + " Autor: " + catalogo.get(clavesAutor[i]).autor + " Numero ejemplares: " + catalogo.get(clavesAutor[i]).numEjemplares);
                         libros++;
                     }
                 }
@@ -373,4 +376,4 @@ function act3(){
     } while (!salir)
     }
 
-// act3();
+act3();
